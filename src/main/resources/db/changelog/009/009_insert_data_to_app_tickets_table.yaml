@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009_insert_data_to_app_tickets_table
+      author: admin
+      changes:
+        - loadData:
+            file: 009_data_to_app_tickets_table.csv
+            relativeToChangelogFile: true
+            tableName: app_tickets
+            encoding: UTF-8
+            separator: ','
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: project_id
+                  type: bigint
+              - column:
+                  name: tickets_status_id
+                  type: bigint

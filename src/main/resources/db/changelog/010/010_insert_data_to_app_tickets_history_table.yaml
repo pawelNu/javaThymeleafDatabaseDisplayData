@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010_insert_data_to_app_tickets_history_table
+      author: admin
+      changes:
+        - loadData:
+            file: 010_data_to_app_tickets_history_table.csv
+            relativeToChangelogFile: true
+            tableName: app_tickets_history
+            encoding: UTF-8
+            separator: ','
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: content
+                  type: text
+              - column:
+                  name: status_change_date
+                  type: date
+              - column:
+                  name: previous_user_id
+                  type: bigint
+              - column:
+                  name: next_user_id
+                  type: bigint
+              - column:
+                  name: previous_status_id
+                  type: bigint
+              - column:
+                  name: next_status_id
+                  type: bigint
+              - column:
+                  name: ticket_id
+                  type: bigint

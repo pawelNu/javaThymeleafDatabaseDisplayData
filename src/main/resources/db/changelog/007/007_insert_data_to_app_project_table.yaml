@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007_insert_data_to_app_project_table
+      author: admin
+      changes:
+        - loadData:
+            file: 007_data_to_app_project_table.csv
+            relativeToChangelogFile: true
+            tableName: app_project
+            encoding: UTF-8
+            separator: ','
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: project_name
+                  type: varchar(50)

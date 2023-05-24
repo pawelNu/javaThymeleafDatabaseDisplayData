@@ -1,0 +1,7 @@
+id,status_name
+1,Created
+2,Assigned to the team
+3,Assigned for implementation
+4,Assigned to the tests
+5,Sent to the customer
+6,Sent to the service

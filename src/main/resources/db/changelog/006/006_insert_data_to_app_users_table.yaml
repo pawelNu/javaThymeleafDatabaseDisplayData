@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006_insert_data_to_app_users_table
+      author: admin
+      changes:
+        - loadData:
+            file: 006_data_to_app_users_table.csv
+            relativeToChangelogFile: true
+            tableName: app_users
+            encoding: UTF-8
+            separator: ','
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: username
+                  type: varchar(50)

@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008_insert_data_to_app_status_table
+      author: admin
+      changes:
+        - loadData:
+            file: 008_data_to_app_status_table.csv
+            relativeToChangelogFile: true
+            tableName: app_status
+            encoding: UTF-8
+            separator: ','
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: status_name
+                  type: varchar(50)
