@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-1_add_foreign_keys_to_app_tickets_history_table
+      author: admin
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets_history
+            baseColumnNames: previous_user_id
+            constraintName: fk_app_tickets_history_previous_user
+            referencedTableName: app_users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets_history
+            baseColumnNames: next_user_id
+            constraintName: fk_app_tickets_history_next_user
+            referencedTableName: app_users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets_history
+            baseColumnNames: previous_status_id
+            constraintName: fk_app_tickets_history_previous_status
+            referencedTableName: app_status
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets_history
+            baseColumnNames: next_status_id
+            constraintName: fk_app_tickets_history_next_status
+            referencedTableName: app_status
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets_history
+            baseColumnNames: ticket_id
+            constraintName: fk_app_tickets_history_ticket
+            referencedTableName: app_tickets
+            referencedColumnNames: id

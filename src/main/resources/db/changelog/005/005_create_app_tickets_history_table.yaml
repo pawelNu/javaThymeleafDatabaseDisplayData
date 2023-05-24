@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005_create_app_tickets_history_table
+      author: admin
+      changes:
+        - createTable:
+            tableName: app_tickets_history
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status_change_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: previous_user_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: next_user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: previous_status_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: next_status_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ticket_id
+                  type: bigint
+                  constraints:
+                    nullable: false

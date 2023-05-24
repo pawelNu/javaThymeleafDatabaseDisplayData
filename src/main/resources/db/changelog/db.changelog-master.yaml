@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: 001/001_create_app_users _table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 002/002_create_app_project_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 003/003_create_app_status_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 004/004_create_app_tickets_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 005/005_create_app_tickets_history_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 005-1/005-1_add_foreign_keys_to_app_tickets_history_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 005-2/005-2_add_foreign_keys_to_app_tickets_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 006/006_insert_data_to_app_users_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 007/007_insert_data_to_app_project_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 008/008_insert_data_to_app_status_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 009/009_insert_data_to_app_tickets_table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 010/010_insert_data_to_app_tickets_history_table.yaml

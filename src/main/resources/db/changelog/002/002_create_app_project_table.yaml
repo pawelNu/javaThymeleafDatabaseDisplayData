@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_app_project_table
+      author: admin
+      changes:
+        - createTable:
+            tableName: app_project
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: project_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

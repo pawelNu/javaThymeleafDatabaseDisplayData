@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_create_app_status_table
+      author: admin
+      changes:
+        - createTable:
+            tableName: app_status
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: status_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_app_users_table
+      author: admin
+      changes:
+        - createTable:
+            tableName: app_users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

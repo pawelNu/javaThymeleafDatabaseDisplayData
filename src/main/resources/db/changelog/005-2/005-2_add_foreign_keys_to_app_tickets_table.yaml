@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-2_add_foreign_keys_to_app_tickets_table
+      author: admin
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets
+            baseColumnNames: project_id
+            constraintName: fk_app_tickets_project
+            referencedTableName: app_project
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: app_tickets
+            baseColumnNames: tickets_status_id
+            constraintName: fk_app_tickets_tickets_status
+            referencedTableName: app_status
+            referencedColumnNames: id
