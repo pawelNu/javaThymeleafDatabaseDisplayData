@@ -11,7 +11,7 @@ public class SqlQuery {
     private String sqlQuery1 = """
             select ath.ticket_id as ticket
             , as3.status_name as status
-            , ap.project_name as company
+            , ap.project_name as project
             , ath.status_change_date as statusChangeDate
             , as1.status_name as previousStatus
             , au1.username as previousUser
@@ -26,7 +26,7 @@ public class SqlQuery {
             left join app_status as1 on ath.previous_status_id = as1.id
             left join app_status as2 on ath.next_status_id = as2.id
             left join app_status as3 on as3.id = at.tickets_status_id
-            where ath.id in (
+            where ath.ticket_id in (
                                     select distinct ath.ticket_id
                                     from app_tickets_history ath
                                     where

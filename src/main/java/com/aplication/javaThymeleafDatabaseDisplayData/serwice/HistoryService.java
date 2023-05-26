@@ -29,50 +29,41 @@ public class HistoryService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<String> checkIfSelectedCompaniesAreNull(List<String> selectedCompanies) {
+    public List<String> checkIfSelectedProjectsAreNull(List<String> selectedProjects) {
         // checks if the list of returned selected items from the multi-select list is empty
         // if is empty, assigns it a new empty list
         // if not, returns this list with the selected values
-        if (selectedCompanies == null) {
-            selectedCompanies = new ArrayList<>();
-            return selectedCompanies;
+        if (selectedProjects == null) {
+            selectedProjects = new ArrayList<>();
+            return selectedProjects;
         } else {
-            return selectedCompanies;
+            return selectedProjects;
         }
     }
 
-    public void searchInTicketHistory(List<String> selectedCompanies, List<String> keywords) {
+    public void searchInTicketHistory(List<String> selectedProjects, List<String> keywords) {
         Map<String, String> keywordsMap = convertKeywordsListToMap(keywords);
         String sqlKeywordsString = addConditionsToSqlQuery(keywordsMap);
-        String selectedCompaniesString = getCompaniesFromMultiSelectComboBox(selectedCompanies);
-        String sqlQueryString = createSqlQuery(sqlKeywordsString, selectedCompaniesString);
-        Map<String, String> allConditionsMap = joinKeyWordsAndCompanies(keywordsMap, selectedCompanies);
+        String selectedProjectsString = getProjectsFromMultiSelectComboBox(selectedProjects);
+        String sqlQueryString = createSqlQuery(sqlKeywordsString, selectedProjectsString);
+        Map<String, String> allConditionsMap = joinKeyWordsAndProjects(keywordsMap, selectedProjects);
         MapSqlParameterSource sqlParameters = convertToMapSqlParameterSource(allConditionsMap);
 
         List<TicketHistoryDto> results = executeQuery(sqlQueryString, sqlParameters);
-        ticketsHistoryHTML(results, keywords, selectedCompanies);
+        ticketsHistoryHTML(results, keywords, selectedProjects);
 
     }
 
-    public List<TicketHistoryDto> searchInTicketHistory2(List<String> selectedCompanies, List<String> keywords) {
+    public List<TicketHistoryDto> searchInTicketHistory2(List<String> selectedProjects, List<String> keywords) {
         // a function created additionally for the needs of the HistoryRestController
         Map<String, String> keywordsMap = convertKeywordsListToMap(keywords);
         String sqlKeywordsString = addConditionsToSqlQuery(keywordsMap);
-        String selectedCompaniesString = getCompaniesFromMultiSelectComboBox(selectedCompanies);
-        String sqlQueryString = createSqlQuery(sqlKeywordsString, selectedCompaniesString);
-        Map<String, String> allConditionsMap = joinKeyWordsAndCompanies(keywordsMap, selectedCompanies);
+        String selectedProjectsString = getProjectsFromMultiSelectComboBox(selectedProjects);
+        String sqlQueryString = createSqlQuery(sqlKeywordsString, selectedProjectsString);
+        Map<String, String> allConditionsMap = joinKeyWordsAndProjects(keywordsMap, selectedProjects);
         MapSqlParameterSource sqlParameters = convertToMapSqlParameterSource(allConditionsMap);
 
-//        System.out.println("sqlQueryString");
-//        System.out.println(sqlQueryString);
-//        System.out.println("allConditionsMap");
-//        System.out.println(allConditionsMap);
-
         List<TicketHistoryDto> results = executeQuery(sqlQueryString, sqlParameters);
-        System.out.println("sqlQueryString");
-        System.out.println(sqlQueryString);
-        System.out.println("sqlParameters");
-        System.out.println(sqlParameters);
 
         return results;
     }
@@ -81,25 +72,24 @@ public class HistoryService {
         // executes the query with the given parameters
         NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         List<TicketHistoryDto> results = namedParameterJdbcTemplate.query(dynamiczneZapytanie, parametry, getRowMapper());
-        System.out.println("executeQuery");
-        System.out.println(results);
+
         return results;
     }
 
     private RowMapper<TicketHistoryDto> getRowMapper() {
         // assigns the attributes of the TicketHistoryDto class with the values from the executed query
         return (resultSet, rowNum) -> {
-            TicketHistoryDto zgloszenie = new TicketHistoryDto();
-            zgloszenie.setTicket(resultSet.getString("ticket"));
-            zgloszenie.setStatus(resultSet.getString("status"));
-            zgloszenie.setCompany(resultSet.getString("company"));
-            zgloszenie.setStatusChangeDate(resultSet.getString("statusChangeDate"));
-            zgloszenie.setPreviousStatus(resultSet.getString("previousStatus"));
-            zgloszenie.setPreviousUser(resultSet.getString("previousUser"));
-            zgloszenie.setNextStatus(resultSet.getString("nextStatus"));
-            zgloszenie.setNextUser(resultSet.getString("nextUser"));
-            zgloszenie.setContent(resultSet.getString("content"));
-            return zgloszenie;
+            TicketHistoryDto ticketHistoryDto = new TicketHistoryDto();
+            ticketHistoryDto.setTicket(resultSet.getString("ticket"));
+            ticketHistoryDto.setStatus(resultSet.getString("status"));
+            ticketHistoryDto.setProject(resultSet.getString("project"));
+            ticketHistoryDto.setStatusChangeDate(resultSet.getString("statusChangeDate"));
+            ticketHistoryDto.setPreviousStatus(resultSet.getString("previousStatus"));
+            ticketHistoryDto.setPreviousUser(resultSet.getString("previousUser"));
+            ticketHistoryDto.setNextStatus(resultSet.getString("nextStatus"));
+            ticketHistoryDto.setNextUser(resultSet.getString("nextUser"));
+            ticketHistoryDto.setContent(resultSet.getString("content"));
+            return ticketHistoryDto;
         };
     }
 
@@ -129,60 +119,54 @@ public class HistoryService {
         return sqlConditionsString;
     }
 
-    private String getCompaniesFromMultiSelectComboBox(List<String> selectedCompanies) {
+    private String getProjectsFromMultiSelectComboBox(List<String> selectedProjects) {
         // dodaje zmienne wiążące do klauzuli in
-        String selectedCompaniesString = "";
+        String selectedProjectsString = "";
 
-        if (selectedCompanies.size() == 1) {
-            selectedCompaniesString = "\nand ap.project_name in (:company1)";
+        if (selectedProjects.size() == 1) {
+            selectedProjectsString = "\nand ap.project_name in (:project1)";
         }
 
-        else if (selectedCompanies.size() == 0) {
-            selectedCompaniesString = "";
+        else if (selectedProjects.size() == 0) {
+            selectedProjectsString = "";
         }
 
-        else if (selectedCompanies.size() > 1) {
-            List<String> selectedCompaniesList = new ArrayList<>();
+        else if (selectedProjects.size() > 1) {
+            List<String> selectedProjectList = new ArrayList<>();
 
-            for (int i = 0; i < selectedCompanies.size(); i++) {
-                String companyBindVariable = ":company" + (i + 1);
-                selectedCompaniesList.add(companyBindVariable);
+            for (int i = 0; i < selectedProjects.size(); i++) {
+                String projectBindVariable = ":project" + (i + 1);
+                selectedProjectList.add(projectBindVariable);
             }
 
-            String joinedCompaniesString = String.join(", ", selectedCompaniesList);
-            selectedCompaniesString = "\nand ap.project_name in (%s)".formatted(joinedCompaniesString);
+            String joinedProjectsString = String.join(", ", selectedProjectList);
+            selectedProjectsString = "\nand ap.project_name in (%s)".formatted(joinedProjectsString);
         }
 
-        return selectedCompaniesString;
+        return selectedProjectsString;
     }
 
-    private Map<String, String> joinKeyWordsAndCompanies(Map<String, String> conditionsMap, List<String> selectedCompanies) {
-        // adds a list with selected companies to the conditions map
+    private Map<String, String> joinKeyWordsAndProjects(Map<String, String> conditionsMap, List<String> selectedProjects) {
+        // adds a list with selected projects to the conditions map
         int i = 1;
-        for (String company : selectedCompanies) {
-            String companyString = "company%d".formatted(i);
-            conditionsMap.put(companyString, company);
+        for (String project : selectedProjects) {
+            String projectString = "project%d".formatted(i);
+            conditionsMap.put(projectString, project);
             i++;
         }
 
         return conditionsMap;
     }
 
-    private String createSqlQuery(String conditions, String companies) {
-        // creates a full SQL query using the SqlQuery class and selected conditions and companies
+    private String createSqlQuery(String conditions, String projects) {
+        // creates a full SQL query using the SqlQuery class and selected conditions and projects
         SqlQuery query = new SqlQuery();
 
         String sql1 = query.getSqlQuery1();
         String sql2 = query.getSqlQuery2();
         String sql3 = query.getSqlQuery3();
-//        System.out.println("sql1");
-//        System.out.println(sql1);
-//        System.out.println("sql2");
-//        System.out.println(sql2);
-//        System.out.println("sql3");
-//        System.out.println(sql3);
 
-        String sqlQueryString = sql1 + conditions + sql2 + companies + sql3;
+        String sqlQueryString = sql1 + conditions + sql2 + projects + sql3;
         return sqlQueryString;
     }
 
@@ -193,7 +177,7 @@ public class HistoryService {
         return sqlParameters;
     }
 
-    private void ticketsHistoryHTML(List<TicketHistoryDto> results, List<String> keywords, List<String> selectedCompanies) {
+    private void ticketsHistoryHTML(List<TicketHistoryDto> results, List<String> keywords, List<String> selectedProjects) {
         // creates an HTML file containing the results of the query and saves it
         // and runs it in the browser
 
@@ -204,7 +188,7 @@ public class HistoryService {
             ticketContentHTML.append("<p>")
                     .append(history.getTicket()).append(" ")
                     .append(history.getStatus()).append(" ")
-                    .append(history.getCompany()).append(" ")
+                    .append(history.getProject()).append(" ")
                     .append("[").append(history.getStatusChangeDate()).append("]").append("<br>")
                     .append(history.getPreviousStatus() != null ? history.getPreviousStatus() : "")
                     .append(" (").append(history.getPreviousUser()).append(")")
@@ -233,7 +217,7 @@ public class HistoryService {
         wholePage.append("<h3>Szukano wg: ");
         wholePage.append(keywords);
         wholePage.append("<br> w: ");
-        wholePage.append(selectedCompanies);
+        wholePage.append(selectedProjects);
         wholePage.append("</h3><br><br><br><br>");
         wholePage.append(htmlString);
         wholePage.append(body2);
@@ -244,14 +228,14 @@ public class HistoryService {
         try {
             // create file name
             String keywordsString = String.join("_", keywords);
-            String selectedCompaniesString = String.join("_", selectedCompanies);
-            String fileName = "historia_" + keywordsString + "_" + selectedCompaniesString + ".html";
+            String selectedProjectsString = String.join("_", selectedProjects);
+            String fileName = "historia_" + keywordsString + "_" + selectedProjectsString + ".html";
 
             // write file with encoding UTF-8
             FileWriter fileWriter = new FileWriter(fileName, StandardCharsets.UTF_8);
             fileWriter.write(ticketHistoryHTML);
             fileWriter.close();
-            System.out.println("Plik HTML został zapisany.");
+            System.out.println("The HTML file has been saved.");
 
             File file = new File(fileName);
             String filePath = file.getAbsolutePath();
@@ -265,19 +249,18 @@ public class HistoryService {
                 int exitCode = process.waitFor();
                 if (exitCode != 0) {
                     System.out.println("exitCode: " + exitCode);
-                    System.out.println("Obsłuż błąd, jeśli proces uruchamiania przeglądarki nie zakończył się pomyślnie");
                     System.out.println("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
                 }
 
             } catch (IOException | InterruptedException e) {
-                System.out.println("Wystąpił bład przy otwieraniu pliku w przeglądarce.");
-                System.out.println("Sprawdź czy plik msedge.exe jest w katalogu:");
+                System.out.println("There was an error opening the file in the browser.");
+                System.out.println("Check if the msedge.exe file is in the directory:");
                 System.out.println("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
                 e.printStackTrace();
             }
 
         } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania pliku HTML.");
+            System.out.println("An error occurred while saving the HTML file.");
             e.printStackTrace();
         }
 

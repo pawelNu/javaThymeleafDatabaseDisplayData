@@ -11,7 +11,7 @@ public class TicketHistoryDto {
     // class with attributes of query results
     private String ticket;
     private String status;
-    private String company;
+    private String project;
     private String statusChangeDate;
     private String previousStatus;
     private String previousUser;

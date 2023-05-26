@@ -28,12 +28,8 @@ public class HistoryRestController {
 
         keywords = new ArrayList<>();
         keywords.add("xyz");
-//        System.out.println(selectedCompanies);
-//        System.out.println(keywords);
 
         List<TicketHistoryDto> list = historyService.searchInTicketHistory2(selectedCompanies, keywords);
-//        System.out.println("list");
-//        System.out.println(list);
 
         return list;
     }
