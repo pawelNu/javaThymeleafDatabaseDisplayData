@@ -37,12 +37,10 @@ public class MainController {
                                           @RequestParam(value = "hiddenField") List<String> keywords) {
         try {
             List<String> selectedProjects = historyService.checkIfSelectedProjectsAreNull(selectedProjectsForm);
-            System.out.println("MainController");
-            System.out.println("selectedProjects.get(0): " + selectedProjects.get(0));
-            System.out.println("selectedProjects.get(1): " + selectedProjects.get(1));
             historyService.searchInTicketHistory(selectedProjects, keywords);
             List<ProjectDto> projectNames = projectService.getAllProjectNames();
             model.addAttribute("projectNames", projectNames);
+
         } catch (DataAccessException ex) {
             model.addAttribute("errorMessage1", "An error occurred while downloading data: ");
             model.addAttribute("errorMessage2", "!!! NO KEYWORD WAS PROVIDED !!!");
