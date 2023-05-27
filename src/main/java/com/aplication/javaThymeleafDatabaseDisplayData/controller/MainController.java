@@ -33,11 +33,11 @@ public class MainController {
 
     @PostMapping("") // http://localhost:8080/ticket-history-app
     public String showMainPageAfterSearch(Model model,
-                                          @RequestParam(value = "selectedOptions", required = false) List<String> selectedCompaniesData,
+                                          @RequestParam(value = "selectedOptions", required = false) List<String> selectedProjectsForm,
                                           @RequestParam(value = "hiddenField") List<String> keywords) {
         try {
-            List<String> selectedCompanies = historyService.checkIfSelectedCompaniesAreNull(selectedCompaniesData);
-            historyService.searchInTicketHistory(selectedCompanies, keywords);
+            List<String> selectedProjects = historyService.checkIfSelectedProjectsAreNull(selectedProjectsForm);
+            historyService.searchInTicketHistory(selectedProjects, keywords);
             List<ProjectDto> projectNames = projectService.getAllProjectNames();
             model.addAttribute("projectNames", projectNames);
         } catch (DataAccessException ex) {

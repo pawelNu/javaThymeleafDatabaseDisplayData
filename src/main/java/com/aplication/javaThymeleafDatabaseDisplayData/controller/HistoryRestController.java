@@ -20,16 +20,16 @@ public class HistoryRestController {
     //    http://localhost:8080/api/ticket-history
     @GetMapping("")
     public List<TicketHistoryDto> getTicketHistory(
-            @RequestParam(value = "selectedOptions", required = false) List<String> selectedCompanies,
+            @RequestParam(value = "selectedOptions", required = false) List<String> selectedProjects,
             @RequestParam(value = "hiddenField", required = false) List<String> keywords
     ) {
-        selectedCompanies = new ArrayList<>();
-        selectedCompanies.add("Stiedemann, Reilly and Raynor");
+        selectedProjects = new ArrayList<>();
+        selectedProjects.add("Stiedemann, Reilly and Raynor");
 
         keywords = new ArrayList<>();
         keywords.add("xyz");
 
-        List<TicketHistoryDto> list = historyService.searchInTicketHistory2(selectedCompanies, keywords);
+        List<TicketHistoryDto> list = historyService.searchInTicketHistory2(selectedProjects, keywords);
 
         return list;
     }
