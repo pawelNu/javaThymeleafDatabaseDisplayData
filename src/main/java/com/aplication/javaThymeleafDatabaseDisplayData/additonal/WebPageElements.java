@@ -10,7 +10,7 @@ public class WebPageElements {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Historia zgloszen</title>
+	<title>Ticket history</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

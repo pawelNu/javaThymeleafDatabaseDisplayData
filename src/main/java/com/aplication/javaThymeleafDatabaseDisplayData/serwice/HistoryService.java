@@ -214,9 +214,9 @@ public class HistoryService {
         StringBuilder wholePage = new StringBuilder();
         wholePage.append(head1);
         wholePage.append(body1);
-        wholePage.append("<h3>Szukano wg: ");
+        wholePage.append("<h3>Searched by: ");
         wholePage.append(keywords);
-        wholePage.append("<br> w: ");
+        wholePage.append("<br> in: ");
         wholePage.append(selectedProjects);
         wholePage.append("</h3><br><br><br><br>");
         wholePage.append(htmlString);
