@@ -191,7 +191,7 @@ public class HistoryService {
                     .append(history.getProject()).append(" ")
                     .append("[").append(history.getStatusChangeDate()).append("]").append("<br>")
                     .append(history.getPreviousStatus() != null ? history.getPreviousStatus() : "")
-                    .append(" (").append(history.getPreviousUser()).append(")")
+                    .append(" (").append(history.getPreviousUser() != null ? history.getPreviousUser() : "").append(")")
                     .append(" -> ")
                     .append(history.getNextStatus())
                     .append(" (").append(history.getNextUser() != null ? history.getNextUser() : "").append(")")
