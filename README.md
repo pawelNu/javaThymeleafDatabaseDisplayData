@@ -25,3 +25,17 @@ Returns a list of projects. <br><br>
 
 HistoryRestController has endpoint: http://localhost:8080/api/ticket-history <br>
 Returns Example search results for the company: Stiedemann, Reilly and Raynor and the keyword: xyz. <br><br>
+
+# Pagkage to .JAR file
+1. In pom.xml in build tag add <finalName>SearchInDatabase</finalName>
+2. Exclude files: HistoryRestController.java and ProjectRestController.java (they are not needed)
+3. Create .JAR package using IntelliJ Community Edition <br>
+![img.png](src/main/resources/static/package_intelij.png)
+4. Create SearchInDatabase.bat file in directory with .JAR file containing: <br>
+<code>
+@echo off <br>
+start "SearchInDatabase" cmd /c "java -jar SearchInDatabase.jar" <br>
+timeout /t 10 >nul <br>
+start "" http://localhost:8080/ticket-history-app
+</code>
+5. Run application using .bat file

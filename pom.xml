@@ -62,6 +62,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>SearchInDatabase</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -72,6 +73,16 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>com/aplication/javaThymeleafDatabaseDisplayData/controller/HistoryRestController.java</exclude>
+						<exclude>com/aplication/javaThymeleafDatabaseDisplayData/controller/ProjectRestController.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
