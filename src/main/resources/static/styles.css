@@ -1,0 +1,28 @@
+.select2-container--default .select2-selection--multiple {
+    width: auto !important;
+    height: auto !important;
+    min-height: 32px;
+}
+
+.added-word {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.remove-word {
+    cursor: pointer;
+    color: red;
+    margin-left: 5px;
+}
+
+.container {
+    max-width: 1000px; /* Dostosuj maksymalną szerokość według potrzeb */
+    margin: 0 auto;
+}
+
+.narrower-input {
+    width: 400px !important; /* Dostosuj szerokość według preferencji */
+}

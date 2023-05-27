@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket history search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<h1>Ticket history search</h1>
+<p>
+    Field <strong>Project</strong> supports multiple selection.<br>
+    Field <strong>Search word</strong> you can enter keywords in the following format: <strong>search%word</strong>, <strong>search_word</strong>.<br>
+    You can use the characters: % and _.<br>
+    There is no need to use % character at the beginning and end, they will be added automatically.<br>
+    Button <strong>Add</strong> or by pressing <strong>Enter</strong> key you can add words to the search word list.
+</p>
+
+<form  th:action="@{/ticket-history-app}" method="post">
+    <div></div>
+    <label for="multiselect">Project:</label>
+    <br>
+    <select id="multiselect" name="selectedOptions" multiple="multiple" class="select2">
+        <option th:each="project : ${projectNames}" th:value="${project.projectName}" th:text="${project.projectName}">
+            <span class="remove-word">&#x2716;</span>
+        </option>
+    </select>
+
+    <br><br>
+    <div class="row">
+        <div class="col">
+            <label for="field1" class="mr-2">Search word:</label>
+            <div class="form-group d-flex align-items-center">
+                <input type="text" class="form-control narrower-input mr-2" id="field1" name="field1">
+                <button id="addWordButton" type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addedWordsContainer"></div>
+
+    <!-- Ukryte pole formularza -->
+    <input type="hidden" id="hiddenField" name="hiddenField" value="" required>
+
+    <br>
+
+    <input type="submit" value="Szukaj" class="btn btn-primary">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="script.js"></script>
+</form>
+</div>
+</body>
+</html>
