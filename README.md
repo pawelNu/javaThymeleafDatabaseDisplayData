@@ -39,3 +39,4 @@ timeout /t 10 >nul <br>
 start "" http://localhost:8080/ticket-history-app
 </code>
 5. Run application using .bat file
+![img.png](screenshots/app_console.png)
