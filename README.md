@@ -8,9 +8,9 @@
 
 # Screenshots
 1. Application window
-![img.png](src/main/resources/static/app_window.png)
+![img.png](screenshots/app_window.png)
 2. Search results example
-![img.png](src/main/resources/static/search_results_example.png)
+![img.png](screenshots/search_results_example.png)
 
 # Used:
 Java, Thymeleaf, Spring Boot, H2 database, Liquibase
@@ -26,11 +26,11 @@ Returns a list of projects. <br><br>
 HistoryRestController has endpoint: http://localhost:8080/api/ticket-history <br>
 Returns Example search results for the company: Stiedemann, Reilly and Raynor and the keyword: xyz. <br><br>
 
-# Pagkage to .JAR file
+# Package to .JAR file
 1. In pom.xml in build tag add <finalName>SearchInDatabase</finalName>
 2. Exclude files: HistoryRestController.java and ProjectRestController.java (they are not needed)
 3. Create .JAR package using IntelliJ Community Edition <br>
-![img.png](src/main/resources/static/package_intelij.png)
+![img.png](screenshots/package_intelij.png)
 4. Create SearchInDatabase.bat file in directory with .JAR file containing: <br>
 <code>
 @echo off <br>
