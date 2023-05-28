@@ -38,5 +38,5 @@ start "SearchInDatabase" cmd /c "java -jar SearchInDatabase.jar" <br>
 timeout /t 10 >nul <br>
 start "" http://localhost:8080/ticket-history-app
 </code>
-5. Run application using .bat file
+5. Run application using .bat file <br>
 ![img.png](screenshots/app_console.png)
