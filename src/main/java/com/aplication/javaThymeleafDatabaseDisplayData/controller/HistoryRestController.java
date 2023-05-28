@@ -24,10 +24,11 @@ public class HistoryRestController {
             @RequestParam(value = "hiddenField", required = false) List<String> keywords
     ) {
         selectedProjects = new ArrayList<>();
-        selectedProjects.add("Stiedemann, Reilly and Raynor");
+        selectedProjects.add("Abbott, Weimann and Hessel");
 
         keywords = new ArrayList<>();
         keywords.add("xyz");
+        keywords.add("abc");
 
         List<TicketHistoryDto> list = historyService.searchInTicketHistory2(selectedProjects, keywords);
 

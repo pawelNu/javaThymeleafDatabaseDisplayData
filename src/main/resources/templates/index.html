@@ -23,7 +23,7 @@
     <label for="multiselect">Project:</label>
     <br>
     <select id="multiselect" name="selectedOptions" multiple="multiple" class="select2">
-        <option th:each="project : ${projectNames}" th:value="${project.projectName}" th:text="${project.projectName}">
+        <option th:each="project : ${projectNames}" th:value="${project.id}" th:text="${project.projectName}">
             <span class="remove-word">&#x2716;</span>
         </option>
     </select>
@@ -41,7 +41,7 @@
 
     <div id="addedWordsContainer"></div>
 
-    <!-- Ukryte pole formularza -->
+    <!-- Hidden form field -->
     <input type="hidden" id="hiddenField" name="hiddenField" value="" required>
 
     <br>

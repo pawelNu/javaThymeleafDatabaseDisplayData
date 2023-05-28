@@ -29,15 +29,15 @@ public class HistoryService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<String> checkIfSelectedProjectsAreNull(List<String> selectedProjects) {
+    public List<Long> checkIfSelectedProjectsAreNull(List<Long> selectedProjectsForm) {
         // checks if the list of returned selected items from the multi-select list is empty
         // if is empty, assigns it a new empty list
         // if not, returns this list with the selected values
-        if (selectedProjects == null) {
-            selectedProjects = new ArrayList<>();
-            return selectedProjects;
+        if (selectedProjectsForm == null) {
+            selectedProjectsForm = new ArrayList<>();
+            return selectedProjectsForm;
         } else {
-            return selectedProjects;
+            return selectedProjectsForm;
         }
     }
 
