@@ -49,6 +49,9 @@ public class HistoryService {
         Map<String, String> allConditionsMap = joinKeyWordsAndProjects(keywordsMap, selectedProjects);
         MapSqlParameterSource sqlParameters = convertToMapSqlParameterSource(allConditionsMap);
 
+        System.out.println("searchInTicketHistory");
+        System.out.println(sqlKeywordsString);
+        System.out.println(sqlParameters);
         List<TicketHistoryDto> results = executeQuery(sqlQueryString, sqlParameters);
         ticketsHistoryHTML(results, keywords, selectedProjects);
 
