@@ -3,12 +3,15 @@ package com.aplication.javaThymeleafDatabaseDisplayData.additonal;
 public class LocationUtils {
 
     public static String getLocation() {
-        Class<?> clazz = new Exception().getStackTrace()[1].getClass();
-        Package pkg = clazz.getPackage();
-        String packageName = pkg.getName();
-        String className = clazz.getSimpleName();
-        String methodName = new Exception().getStackTrace()[1].getMethodName();
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        if (stackTrace.length > 2) {
+            // Index 2 means calling the method directly outside getLocation()
+            StackTraceElement element = stackTrace[2];
+            String packageName = element.getClassName();
+            String methodName = element.getMethodName();
+            return packageName + "." + methodName;
+        }
 
-        return packageName + "." + className + "." + methodName;
+        return "";
     }
 }

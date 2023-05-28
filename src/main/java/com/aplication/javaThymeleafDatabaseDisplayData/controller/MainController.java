@@ -36,13 +36,6 @@ public class MainController {
                                           @RequestParam(value = "selectedOptions", required = false) List<Long> selectedProjectsForm,
                                           @RequestParam(value = "hiddenField") List<String> keywords) {
         try {
-            System.out.println("keywords: " + keywords);
-            int numberOfKeywords = keywords.size();
-            System.out.println("number of keywords: " + numberOfKeywords);
-            System.out.println("selectedProjectsForm: " + selectedProjectsForm);
-            int numberOfSelectedProjectsForm = selectedProjectsForm.size();
-            System.out.println("number of selected projects form: " + numberOfSelectedProjectsForm);
-
             List<ProjectDto> projectNames = projectService.getAllProjectNames();
 
             List<Long> selectedProjects = historyService.checkIfSelectedProjectsAreNull(selectedProjectsForm);
